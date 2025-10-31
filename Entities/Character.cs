@@ -2,19 +2,21 @@
 using static System.Math;
 
 namespace OOP5.Entities {
-
 	public abstract class Character
 	{
 		private string Name;
 		private int BaseLevel;
 		private int BaseHealthPoints;
 		private float BaseAttack;
+		private float StealChance = 0.01f;
 
-		public Character(string name, int baseLevel, int baseHealthPoints, float baseAttack) {
+		public Character(string name, int baseLevel, int baseHealthPoints, float baseAttack, float stealChance)
+		{
 			this.Name = name;
 			this.BaseLevel = baseLevel;
 			this.BaseHealthPoints = baseHealthPoints;
 			this.BaseAttack = baseAttack;
+			this.StealChance = stealChance;
 		}
 
 		public string GetName()
@@ -41,6 +43,7 @@ namespace OOP5.Entities {
 
 		/**
 		* i can attack
+		* i can defend
 		* i can heal (if i have items)
 		* i have a critical chance
 		* i can use magic if i'm a mage
@@ -48,6 +51,8 @@ namespace OOP5.Entities {
 
 		public int Attack(Character chara)
 		{
+			// TODO: do something with defence
+			// TODO: do something with steal chance
 			int entityCurrentHeath = chara.GetBaseHealtPoints();
 			int damageTaken = (int)(entityCurrentHeath - this.BaseAttack);
 
