@@ -1,5 +1,6 @@
 ﻿using System;
 using static System.Math;
+using OOP5.Dices;
 
 namespace OOP5.Entities {
 	public abstract class Character
@@ -47,22 +48,25 @@ namespace OOP5.Entities {
 		* i can use magic if i'm a mage
 		*/
 
-		public int Attack(Character chara)
+		virtual public int ChooseTarget(int partyCount)
+		{
+			int targetIndex = TargetDice.CalculateTargetIndex(partyCount);
+
+			return targetIndex - 1;
+		}
+
+        virtual public void Attack(Character chara)
 		{
 			// TODO: do something with defence
-			// TODO: do something with steal chance
 			int entityCurrentHeath = chara.GetBaseHealtPoints();
-			int damageTaken = (int)(entityCurrentHeath - this.BaseAttack);
+			int damageTaken = DamageDice.CalculateReceivedDamage(entityCurrentHeath, (int)(entityCurrentHeath - this.BaseAttack));
 
-			// was the damage taken the enough to KO the enemy
-			if(damageTaken > entityCurrentHeath) {
-				Console.WriteLine($"{chara.GetName()} was KO'd.");
-				return damageTaken;
+			// is the current health negative
+			if(entityCurrentHeath <= 0 || damageTaken > entityCurrentHeath) {
+				throw new Exception($"{chara.GetName()} was KO'd.");
 			}
 
 			chara.SetBaseHealtPoints(damageTaken);
-
-			return damageTaken;
 		}
 	}
 }
