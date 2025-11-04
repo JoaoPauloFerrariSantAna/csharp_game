@@ -8,15 +8,13 @@ namespace OOP5.Entities {
 		private int BaseLevel;
 		private int BaseHealthPoints;
 		private float BaseAttack;
-		private float StealChance = 0.01f;
 
-		public Character(string name, int baseLevel, int baseHealthPoints, float baseAttack, float stealChance)
+		public Character(string name, int baseLevel, int baseHealthPoints, float baseAttack)
 		{
 			this.Name = name;
 			this.BaseLevel = baseLevel;
 			this.BaseHealthPoints = baseHealthPoints;
 			this.BaseAttack = baseAttack;
-			this.StealChance = stealChance;
 		}
 
 		public string GetName()
