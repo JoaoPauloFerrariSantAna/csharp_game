@@ -20,12 +20,16 @@ namespace OOP5.Entities {
 			this.IsPlayersTurn = true;
 		}
 
-		private void ParsePlayerAction(char action)
+		// TODO: make a ParseAutomaticAction
+		private void ParseAction(Character actor, List<Character> enemyParty, char action)
 		{
 			switch(action)
 			{
 				case (char)PossibleAtions.Attack:
-					Console.WriteLine("Atacando!");
+					Console.WriteLine($"Which enemy would you like to attack? There are {enemyParty.Count()}");
+
+					int enemyToAttack = Convert.ToInt16(Console.ReadLine());
+                    actor.Attack(enemyParty[enemyToAttack - 1]);
 				break;
 
 				case (char)PossibleAtions.Defend:
@@ -42,28 +46,43 @@ namespace OOP5.Entities {
 			/* TODO: fazer um sistema de turnos
 			 * preciso que tenha um "começo de turno"
 			 * preciso que tenha um "fim de turno"
-			 * para isso eu preciso de algo que me diga quando chegamos no fim do turno
-			*/
+			 * para isso eu preciso de algo que me diga quando chegamos no fim do turno */
 			while(this.IsInBattle) {
-				Console.WriteLine("Players turn!");
 				while(this.IsPlayersTurn)
 				{
+					Console.WriteLine("---- Make Your Choise, Hero! ----");
+
 					foreach(var chara in this.PlayerParty)
 					{
-						Console.WriteLine("What would you like to do?");
+						Console.WriteLine($"HP: {chara.GetBaseHealtPoints()}");
+						Console.WriteLine($"What would you like to do, {chara.GetName()}?");
 						Console.WriteLine("- [a]ttack\n- [d]efend");
 						Console.Write("(action) >> ");
+
 						char action = Convert.ToChar(Console.ReadLine());
-						ParsePlayerAction(action);
+						ParseAction(chara, this.EnemyParty, action);
 					}
 
 					this.IsPlayersTurn = false;
 				}
 
-				Console.WriteLine("Enemies turn!");
-
 				while(!this.IsPlayersTurn)
 				{
+					Console.WriteLine("---- The monster thinks...! ----");
+
+					foreach (var enemy in this.EnemyParty)
+					{
+						/*
+						 * 
+						 * we want to make the enemy choose by itself which character to attack
+						 * then we will want to make it attack the player
+						 * 
+						 */
+						int index = enemy.ChooseTarget(this.PlayerParty.Count());
+
+						enemy.Attack(this.PlayerParty[index]);
+					}
+
 					this.IsPlayersTurn = true;
 				}
 			}
