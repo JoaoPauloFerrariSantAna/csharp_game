@@ -20,13 +20,22 @@ namespace OOP5.Entities {
 			this.IsPlayersTurn = true;
 		}
 
+		private void PrintEnemiesHitpoints()
+		{
+			foreach (var enemy in this.EnemyParty)
+			{
+				Console.Write($"{enemy.GetName()} -> ");
+				Console.WriteLine(enemy.GetBaseHealtPoints());
+			}
+		}
+
 		// TODO: make a ParseAutomaticAction
 		private void ParseAction(Character actor, List<Character> enemyParty, char action)
 		{
 			switch(action)
 			{
 				case (char)PossibleAtions.Attack:
-					Console.WriteLine($"Which enemy would you like to attack? There are {enemyParty.Count()}");
+					Console.WriteLine($"Which enemy would you like to attack? There are {enemyParty.Count}");
 
 					int enemyToAttack = Convert.ToInt16(Console.ReadLine());
                     actor.Attack(enemyParty[enemyToAttack - 1]);
@@ -52,9 +61,13 @@ namespace OOP5.Entities {
 				{
 					Console.WriteLine("---- Make Your Choise, Hero! ----");
 
+					PrintEnemiesHitpoints();
+
 					foreach(var chara in this.PlayerParty)
 					{
-						Console.WriteLine($"HP: {chara.GetBaseHealtPoints()}");
+						Console.WriteLine($"Your HP: {chara.GetBaseHealtPoints()}");
+
+
 						Console.WriteLine($"What would you like to do, {chara.GetName()}?");
 						Console.WriteLine("- [a]ttack\n- [d]efend");
 						Console.Write("(action) >> ");
@@ -78,7 +91,7 @@ namespace OOP5.Entities {
 						 * then we will want to make it attack the player
 						 * 
 						 */
-						int index = enemy.ChooseTarget(this.PlayerParty.Count());
+						int index = enemy.ChooseTarget(this.PlayerParty.Count);
 
 						enemy.Attack(this.PlayerParty[index]);
 					}
