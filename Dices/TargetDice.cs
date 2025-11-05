@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace OOP5.Dices
-{
+namespace OOP5.Dices {
     public static class TargetDice
     {
         public static int CalculateTargetIndex(int maxTargets, int minTarget = 1)

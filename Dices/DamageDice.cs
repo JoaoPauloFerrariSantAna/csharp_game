@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace OOP5.Dices
-{
+namespace OOP5.Dices {
     public static class DamageDice
     {
         public static int CalculateReceivedDamage(int maxDamage, int minDamage)
