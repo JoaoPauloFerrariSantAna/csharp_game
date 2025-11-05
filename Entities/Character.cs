@@ -28,6 +28,11 @@ namespace OOP5.Entities {
 			return this.BaseHealthPoints;
 		}
 
+		public int GetCurrentLevel()
+		{
+			return this.BaseLevel;
+		}
+
 		public void SetBaseHealtPoints(int newHealth)
 		{
 			this.BaseHealthPoints = newHealth;
@@ -43,7 +48,7 @@ namespace OOP5.Entities {
 		/**
 		* i can attack
 		* i can defend
-		* i can heal (if i have items)
+		* i can heal (if i have items or if i'm a mage)
 		* i have a critical chance
 		* i can use magic if i'm a mage
 		*/
@@ -58,11 +63,14 @@ namespace OOP5.Entities {
         virtual public void Attack(Character chara)
 		{
 			// TODO: do something with defence
-			int entityCurrentHeath = chara.GetBaseHealtPoints();
-			int damageTaken = DamageDice.CalculateReceivedDamage(entityCurrentHeath, (int)(entityCurrentHeath - this.BaseAttack));
+			int currentHealth = chara.GetBaseHealtPoints();
+			int damageTaken = DamageDice.CalculateReceivedDamage(
+				currentHealth,
+				(int)((currentHealth - this.BaseAttack) - (chara.GetCurrentLevel() / 10))
+			);
 
 			// is the current health negative
-			if(entityCurrentHeath <= 0 || damageTaken > entityCurrentHeath) {
+			if(currentHealth <= 0 || damageTaken > currentHealth) {
 				throw new Exception($"{chara.GetName()} was KO'd.");
 			}
 
