@@ -1,7 +1,7 @@
 PLAYABLE_CHARACTERS := Entities/Knight.cs
-DICES := Dices/DamageDice.cs Dices/TargetDice.cs
+DICES := Dices/DamageDice.cs Dices/TargetDice.cs Dices/ActionDice.cs
 ENEMIES := Entities/Enemy.cs Entities/Orc.cs
-CONSTANTS := Constants/PossibleActions.cs Constants/LevelDefaults.cs
+CONSTANTS := Constants/PossibleActions.cs Constants/LevelDefaults.cs Constants/EnemyState.cs
 FILES := Entities/Character.cs Entities/Arena.cs $(DICES) $(CONSTANTS) $(ENEMIES) $(PLAYABLE_CHARACTERS) Entities/Game.cs Program.cs
 
 game: Program.cs
