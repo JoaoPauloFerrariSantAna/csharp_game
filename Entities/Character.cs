@@ -60,6 +60,11 @@ namespace OOP5.Entities {
 			return targetIndex - 1;
 		}
 
+		virtual public void Act(Character chara)
+		{
+
+		}
+
         virtual public void Attack(Character chara)
 		{
 			// TODO: do something with defence

@@ -52,10 +52,6 @@ namespace OOP5.Entities {
 
 		public void Start()
 		{
-			/* TODO: fazer um sistema de turnos
-			 * preciso que tenha um "começo de turno"
-			 * preciso que tenha um "fim de turno"
-			 * para isso eu preciso de algo que me diga quando chegamos no fim do turno */
 			while(this.IsInBattle) {
 				while(this.IsPlayersTurn)
 				{
@@ -66,7 +62,6 @@ namespace OOP5.Entities {
 					foreach(var chara in this.PlayerParty)
 					{
 						Console.WriteLine($"Your HP: {chara.GetBaseHealtPoints()}");
-
 
 						Console.WriteLine($"What would you like to do, {chara.GetName()}?");
 						Console.WriteLine("- [a]ttack\n- [d]efend");
@@ -85,15 +80,11 @@ namespace OOP5.Entities {
 
 					foreach (var enemy in this.EnemyParty)
 					{
-						/*
-						 * 
-						 * we want to make the enemy choose by itself which character to attack
-						 * then we will want to make it attack the player
-						 * 
-						 */
+						/* we want to make the enemy choose by itself which character to attack
+						 * then we will want to make it attack the player */
 						int index = enemy.ChooseTarget(this.PlayerParty.Count);
 
-						enemy.Attack(this.PlayerParty[index]);
+						enemy.Act(this.PlayerParty[index]);
 					}
 
 					this.IsPlayersTurn = true;
